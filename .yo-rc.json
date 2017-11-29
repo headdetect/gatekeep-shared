@@ -1,0 +1,36 @@
+{
+  "generator-ngx-library": {
+    "version": "5.3.0",
+    "authorName": "Brayden Lopez",
+    "authorEmail": "brayden@gatekeep.io",
+    "githubUsername": "headdetect",
+    "githubRepoName": "gatekeep-shared",
+    "projectName": "gatekeep-shared",
+    "projectVersion": "0.0.1",
+    "projectDescription": "Shared resources for gatekeep kiosk and administration application",
+    "projectKeywords": [
+      "ng",
+      "angular",
+      "library"
+    ],
+    "ngVersion": "4.0.0",
+    "ngModules": [
+      "core",
+      "common",
+      "forms",
+      "http",
+      "platform-browser",
+      "animations"
+    ],
+    "otherDependencies": [
+      "@types/lodash",
+      " "
+    ],
+    "dependenciesRange": "^",
+    "ngPrefix": "gatekeep",
+    "useGreenkeeper": false,
+    "useCompodoc": true,
+    "enforceNgGitCommitMsg": true,
+    "exclusions": []
+  }
+}
