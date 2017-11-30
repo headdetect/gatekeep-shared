@@ -33,6 +33,7 @@ const rollupUglify = require('rollup-plugin-uglify');
 const rollupSourcemaps = require('rollup-plugin-sourcemaps');
 const rollupNodeResolve = require('rollup-plugin-node-resolve');
 const rollupCommonjs = require('rollup-plugin-commonjs');
+const rollupAsync = require('rollup-plugin-async');
 
 /** To load templates and styles in Angular components */
 const gulpInlineNgTemplate = require('gulp-inline-ng2-template');
@@ -348,7 +349,7 @@ gulp.task('rollup-bundle', (cb) => {
     const es5Input = path.join(es5OutputFolder, `${config.unscopedLibraryName}.js`);
     const es2015Input = path.join(es2015OutputFolder, `${config.unscopedLibraryName}.js`);
     const globals = {
-      // Angular dependencies 
+      // Angular dependencies
       '@angular/core': 'ng.core',
       '@angular/common': 'ng.common',
       '@angular/forms': 'ng.forms',
@@ -389,6 +390,7 @@ gulp.task('rollup-bundle', (cb) => {
       globals: globals,
       external: Object.keys(globals),
       plugins: [
+        rollupAsync(),
         rollupCommonjs({
           include: ['node_modules/rxjs/**']
         }),

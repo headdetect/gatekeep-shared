@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import {Site} from "./models/Site";
-import {SiteEvent} from "./models/SiteEvent";
-import {VisitorInfo} from "./models/VisitorInfo";
-import {VolunteerInfo} from "./models/VolunteerInfo";
 import {EventsService} from "./service/events.service";
+import {SuccessAnimationComponent} from "./component/success-animation.component";
 
 
 @NgModule({
@@ -12,16 +9,10 @@ import {EventsService} from "./service/events.service";
     CommonModule
   ],
   exports: [
-    Site,
-    SiteEvent,
-    VisitorInfo,
-    VolunteerInfo
+    SuccessAnimationComponent
   ],
   declarations: [
-    Site,
-    SiteEvent,
-    VisitorInfo,
-    VolunteerInfo
+    SuccessAnimationComponent
   ]
 })
 export class GatekeepModule {
