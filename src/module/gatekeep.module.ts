@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import {EventsService} from "./service/events.service";
 import {SuccessAnimationComponent} from "./component/success-animation.component";
+import {CapitalizePipe} from "./pipes/capitalize.pipe";
+import {LoginService} from "./service/login.service";
+import {BaseService} from "./service/base-service";
 
 
 @NgModule({
@@ -9,19 +12,20 @@ import {SuccessAnimationComponent} from "./component/success-animation.component
     CommonModule
   ],
   exports: [
-    SuccessAnimationComponent
+    SuccessAnimationComponent,
+    CapitalizePipe,
+    BaseService
   ],
   declarations: [
-    SuccessAnimationComponent
+    SuccessAnimationComponent,
+    CapitalizePipe,
+    BaseService
+  ],
+  providers: [
+    EventsService,
+    LoginService
   ]
 })
 export class GatekeepModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: GatekeepModule,
-      providers: [
-        EventsService
-      ]
-    };
-  }
+
 }

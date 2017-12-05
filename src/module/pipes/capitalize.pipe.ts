@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import * as _ from '@types/lodash';
 
 @Pipe({name: 'capitalize'})
 export class CapitalizePipe implements PipeTransform {
@@ -13,7 +12,7 @@ export class CapitalizePipe implements PipeTransform {
    * @returns {string}
    */
   transform(value: string) : string {
-    return value.split('-').map(_.capitalize).join('-');
+    return value.split('-').map(block => block.charAt(0).toUpperCase() + block.slice(1)).join('-');
   }
 
 }

@@ -4,7 +4,6 @@ import {Moment} from 'moment';
 @Injectable()
 export class SiteEvent {
 
-
   public title : string;
 
   public location : string;
