@@ -16,7 +16,7 @@ export class EventsService extends BaseService {
   public getEvents() : Promise<SiteEvent[]> {
       return this.http.get(BaseService.Url + '/Events')
         .map(this.toJson)
-        .map(events => events.map((event : any) => event as SiteEvent))
+        .map(events => events.map((event : any) => new SiteEvent(event)))
         .toPromise();
   }
 }
