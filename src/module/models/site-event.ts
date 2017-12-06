@@ -32,8 +32,4 @@ export class SiteEvent {
     this.amountJoined = attributes['amountJoined'];
     this.maxJoinable = attributes['maxJoinable'];
   }
-
-  public isFull() {
-    return this.amountJoined >= this.maxJoinable;
-  }
 }
