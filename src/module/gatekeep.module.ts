@@ -13,15 +13,14 @@ import {BaseService} from "./service/base-service";
   ],
   exports: [
     SuccessAnimationComponent,
-    CapitalizePipe,
-    BaseService
+    CapitalizePipe
   ],
   declarations: [
     SuccessAnimationComponent,
-    CapitalizePipe,
-    BaseService
+    CapitalizePipe
   ],
   providers: [
+    BaseService,
     EventsService,
     LoginService
   ]
