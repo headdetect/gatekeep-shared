@@ -39,10 +39,10 @@
     "moment": "^2.19.3"
   },
   "devDependencies": {
-    "@angular/compiler": "4.0.0",
-    "@angular/compiler-cli": "4.0.0",
-    "@angular/platform-browser-dynamic": "4.0.0",
-    "@angular/platform-server": "4.0.0",
+    "@angular/compiler": "4.4.6",
+    "@angular/compiler-cli": "4.4.6",
+    "@angular/platform-browser-dynamic": "4.4.6",
+    "@angular/platform-server": "4.4.6",
     "@compodoc/gulp-compodoc": "0.0.8",
     "@types/jasmine": "2.5.41",
     "@types/node": "8.0.44",

@@ -12,6 +12,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
     "stripInternal": true,
+    "emitDecoratorMetadata": true,
     "lib": [
       "es2015",
       "dom"
