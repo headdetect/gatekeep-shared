@@ -7,6 +7,7 @@ import {EventsService} from "./module/service/events.service";
 import {LoginService} from "./module/service/login.service";
 import {VisitorService} from "./module/service/visitor.service";
 import {VolunteerService} from "./module/service/volunteer.service";
+import {OverviewService} from "./module/service/overview.service";
 
 export * from './module/models/';
 export * from './module/service/';
@@ -31,7 +32,8 @@ export * from './module/pipes';
     EventsService,
     LoginService,
     VisitorService,
-    VolunteerService
+    VolunteerService,
+    OverviewService
   ]
 })
 export class GatekeepModule {
@@ -43,7 +45,8 @@ export class GatekeepModule {
         EventsService,
         LoginService,
         VisitorService,
-        VolunteerService
+        VolunteerService,
+        OverviewService
       ]
     };
   }
