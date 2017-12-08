@@ -23,5 +23,11 @@ export class SiteEvent extends BaseModel {
 
   constructor(attributes: any) {
     super(attributes);
+
+    if (this.startDate)
+      this.startDate = moment(this.startDate);
+
+    if (this.endDate)
+      this.endDate = moment(this.endDate);
   }
 }
