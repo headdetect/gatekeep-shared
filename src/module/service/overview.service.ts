@@ -5,6 +5,7 @@ import {BaseService} from "./base-service";
 import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
+import moment from "moment";
 
 @Injectable()
 export class OverviewService extends BaseService {

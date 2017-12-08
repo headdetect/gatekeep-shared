@@ -1,7 +1,7 @@
 import {BaseModel} from "./base-model";
 import {Address} from "./address";
 import {PhoneNumber} from "./phone-number";
-import * as moment from "moment";
+import moment from "moment";
 
 export class Person extends BaseModel {
 

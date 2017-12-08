@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment from "moment";
 import {Person} from "./person";
 
 export class Visitor extends Person {
