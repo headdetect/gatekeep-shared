@@ -2,6 +2,7 @@ import {Observable} from "rxjs/Observable";
 import {Response} from '@angular/http';
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import {Injectable} from "@angular/core";
+import {BaseModel} from "../models/base-model";
 
 @Injectable()
 export class BaseService {
@@ -38,6 +39,13 @@ export class BaseService {
 
     return Observable.throw('unknown error');
   }
+
+  protected mapArray<T extends BaseModel>(constructorT : BaseServiceConstructor<T>, input : any) : Array<T> {
+    return input.map((entry : any) => new constructorT(entry));
+  }
 }
 
+export interface BaseServiceConstructor<T extends BaseModel> {
+  new (attributes : any) : T;
+}
 

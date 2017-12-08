@@ -1,7 +1,6 @@
-import {Injectable} from '@angular/core';
+import {BaseModel} from "./base-model";
 
-@Injectable()
-export class Site {
+export class Site extends BaseModel {
 
   /**
    * The site location name.
@@ -13,4 +12,8 @@ export class Site {
    * A url/path to the branding image
    */
   public image : string;
+
+  constructor(attributes: any) {
+    super(attributes);
+  }
 }

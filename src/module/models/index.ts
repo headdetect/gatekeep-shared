@@ -1,4 +1,8 @@
 export * from './site-event';
+export * from './address';
+export * from './base-model';
+// export * from './person';
+export * from './phone-number';
 export * from './site';
-export * from './volunteer-info';
-export * from './visitor-info';
+export * from './visitor';
+// export * from './volunteer';
