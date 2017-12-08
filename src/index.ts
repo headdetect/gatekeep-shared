@@ -17,12 +17,18 @@ export * from './module/pipes';
   ],
   exports: [
     SuccessAnimationComponent,
-    CapitalizePipe
+    CapitalizePipe,
+
   ],
   declarations: [
     SuccessAnimationComponent,
-    CapitalizePipe
+    CapitalizePipe,
   ],
+  providers: [
+    BaseService,
+    EventsService,
+    LoginService
+  ]
 })
 export class GatekeepModule {
   static forRoot(): ModuleWithProviders {

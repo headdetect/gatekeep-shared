@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
 import moment from 'moment';
+import {BaseModel} from "./base-model";
 
 @Injectable()
-export class SiteEvent {
+export class SiteEvent extends BaseModel {
 
   public title : string;
 
   public location : string;
 
-  public start : moment.Moment;
+  public startDate : moment.Moment;
 
-  public end : moment.Moment;
+  public endDate : moment.Moment;
 
   public creator : string;
 
@@ -18,18 +19,15 @@ export class SiteEvent {
 
   public amountJoined : number;
 
-  public maxJoinable : number;
+  public maxVolunteersAllowed : number;
 
-  constructor(attributes : any = null) {
-    if (!attributes) return;
+  constructor(attributes: any) {
+    super(attributes);
 
-    this.title = attributes['title'];
-    this.location = attributes['location'];
-    this.start = moment(attributes['startDate']);
-    this.end = moment(attributes['endDate']);
-    this.creator = attributes['creator'];
-    this.eventId = attributes['eventId'];
-    this.amountJoined = attributes['amountJoined'];
-    this.maxJoinable = attributes['maxVolunteersAllowed'];
+    if (this.startDate)
+      this.startDate = moment(this.startDate);
+
+    if (this.endDate)
+      this.endDate = moment(this.endDate);
   }
 }
