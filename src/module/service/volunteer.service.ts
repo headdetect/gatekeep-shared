@@ -26,6 +26,7 @@ export class VolunteerService extends BaseService {
     return this.http
       .get(`${BaseService.Url}/Volunteers/Find?lastName=${lastName}&birthDate=${birthDate}&phoneNumber=${phoneNumber}`)
       .map(this.toJson)
+      .catch(this.onError)
       .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
       .toPromise();
   }

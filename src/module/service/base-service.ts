@@ -29,6 +29,8 @@ export class BaseService {
    * @returns {any}
    */
   protected onError (error: any) {
+    if (error._body === "") return Observable.throw(error.statusText);
+
     if (!error.json) return Observable.throw(error);
 
     const errJson = error.json();
@@ -42,6 +44,16 @@ export class BaseService {
 
   protected mapArray<T extends BaseModel>(constructorT : BaseServiceConstructor<T>, input : any) : Array<T> {
     return input.map((entry : any) => new constructorT(entry));
+  }
+
+  /**
+   * Will suppress any errors.
+   * @returns {any}
+   * @param error
+   * @param next
+   */
+  protected suppressError(error: any, next : Observable<any>) {
+
   }
 }
 

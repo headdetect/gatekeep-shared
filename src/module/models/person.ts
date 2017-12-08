@@ -16,6 +16,9 @@ export class Person extends BaseModel {
 
   constructor(attributes : any = {}) {
     super(attributes);
+
+    if (attributes.hasOwnProperty('birthdate') && attributes.birthdate)
+      this.birthdate = moment(attributes.birthdate);
   }
 
 }
