@@ -15,7 +15,7 @@ export class SiteEvent extends BaseModel {
 
   public creator : string;
 
-  public eventId : number;
+  public id : number;
 
   public amountJoined : number;
 

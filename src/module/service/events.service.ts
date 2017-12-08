@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, RequestOptions, Headers} from '@angular/http';
 import {SiteEvent} from "../models/site-event";
 import {BaseService} from "./base-service";
 import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
+import * as moment from "moment";
+import {Person} from "../models/person";
 
 @Injectable()
 export class EventsService extends BaseService {
@@ -28,18 +30,6 @@ export class EventsService extends BaseService {
   /**
    * Create an event with the specified parameters.
    *
-   *
-   * Example of accepted parameters:
-   *
-   * {
-   *   title : string,
-   *   description: string,
-   *   location : string,
-   *   startDate : moment.Moment,
-   *   endDate : moment.Moment,
-   *   maxVolunteersAllowed : number
-   * }
-   *
    * @returns {Promise<SiteEvent>}
    * @param siteEvent
    */
@@ -59,6 +49,29 @@ export class EventsService extends BaseService {
     return this.http.post(BaseService.Url + '/Events', attributes)
       .map(this.toJson)
       .map(event => new SiteEvent(event))
+      .toPromise();
+  }
+
+  public addAttendees(siteEventId : number, personIds : Array<number>) : Promise<any> {
+    return this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personIds.join(',')}]`)
+      .toPromise();
+  }
+
+  public addAttendee(siteEventId : number, personId : number) : Promise<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personId}]`, options)
+      .toPromise();
+  }
+
+  public getAttendees(siteEventId : number) : Promise<Array<Person>> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.get(BaseService.Url + '/Events/' + siteEventId + '/Attendees', options)
+      .map(this.toJson)
+      .map(attendees => this.mapArray<Person>(Person, attendees))
       .toPromise();
   }
 
