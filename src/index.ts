@@ -5,6 +5,8 @@ import {CapitalizePipe} from "./module/pipes/capitalize.pipe";
 import {BaseService} from "./module/service/base-service";
 import {EventsService} from "./module/service/events.service";
 import {LoginService} from "./module/service/login.service";
+import {VisitorService} from "./module/service/visitor.service";
+import {VolunteerService} from "./module/service/volunteer.service";
 
 export * from './module/models/';
 export * from './module/service/';
@@ -27,7 +29,9 @@ export * from './module/pipes';
   providers: [
     BaseService,
     EventsService,
-    LoginService
+    LoginService,
+    VisitorService,
+    VolunteerService
   ]
 })
 export class GatekeepModule {
@@ -37,7 +41,9 @@ export class GatekeepModule {
       providers: [
         BaseService,
         EventsService,
-        LoginService
+        LoginService,
+        VisitorService,
+        VolunteerService
       ]
     };
   }
