@@ -21,8 +21,9 @@ export class EventsService extends BaseService {
    */
   public getEvents() : Promise<SiteEvent[]> {
       return this.http.get(BaseService.Url + '/Events')
-        .map(this.toJson)
-        .map(events => this.mapArray<SiteEvent>(SiteEvent, events))
+        .map(this.toSuppressedJson)
+        .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
+        .catch(this.onError)
         .toPromise();
   }
 
@@ -47,7 +48,7 @@ export class EventsService extends BaseService {
 
     return this.http.post(BaseService.Url + '/Events', attributes)
       .map(this.toJson)
-      .map(event => new SiteEvent(event))
+      .map(event => event ? new SiteEvent(event) : null)
       .toPromise();
   }
 
@@ -70,7 +71,7 @@ export class EventsService extends BaseService {
 
     return this.http.get(BaseService.Url + '/Events/' + siteEventId + '/Attendees', options)
       .map(this.toJson)
-      .map(attendees => this.mapArray<Person>(Person, attendees))
+      .map(attendees => attendees ? this.mapArray<Person>(Person, attendees) : null)
       .toPromise();
   }
 

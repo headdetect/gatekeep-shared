@@ -20,7 +20,7 @@ export class LoginService extends BaseService {
       username: username,
       password: password
     })
-      .toPromise();
+    .toPromise();
   }
 
   public logout() : Promise<{}> {

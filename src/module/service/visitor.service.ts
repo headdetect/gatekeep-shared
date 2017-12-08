@@ -23,8 +23,7 @@ export class VisitorService extends BaseService {
    */
   public logVisitor(visitor : Visitor) : Promise<any> {
     return this.http.post(BaseService.Url + "/Visitors", visitor)
-      .map(this.toJson)
-      .catch(this.onError)
+      .map(this.toSuppressedJson)
       .map(attrs => attrs ? new Visitor(attrs) : null)
       .toPromise();
   }

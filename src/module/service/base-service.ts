@@ -24,22 +24,38 @@ export class BaseService {
   }
 
   /**
+   * Converts the response into a proper json response.
+   *
+   * Will supress any errors
+   *
+   * @param {Response} response
+   * @returns {any}
+   */
+  protected toSuppressedJson(response : Response) {
+    console.log(response);
+
+    if (!response.ok || response.text() === "") return null;
+
+    return response.json() || {};
+  }
+
+  /**
    * Reads from the "errors" property if it exists then throws that observable error
    * @param error
    * @returns {any}
    */
   protected onError (error: any) {
-    if (error._body === "") return Observable.throw(error.statusText);
+    if (error._body === "") return ErrorObservable.create(error.statusText);
 
-    if (!error.json) return Observable.throw(error);
+    if (!error.json) return ErrorObservable.create(error);
 
     const errJson = error.json();
 
     if (errJson) {
-      return Observable.throw( errJson.message || errJson.errors);
+      return ErrorObservable.create( errJson.message || errJson.errors);
     }
 
-    return Observable.throw('unknown error');
+    return ErrorObservable.create('unknown error');
   }
 
   protected mapArray<T extends BaseModel>(constructorT : BaseServiceConstructor<T>, input : any) : Array<T> {
