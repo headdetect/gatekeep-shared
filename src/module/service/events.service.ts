@@ -66,6 +66,7 @@ export class EventsService extends BaseService {
       return Promise.reject("siteEvent specified was null");
 
     const attributes = {
+      id: siteEvent.id,
       title : siteEvent.title,
       description: "",
       location : siteEvent.location,
