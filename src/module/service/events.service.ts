@@ -76,7 +76,7 @@ export class EventsService extends BaseService {
     };
 
     return this.wrapErrorHandler(
-      this.http.put(BaseService.Url + '/Events', attributes)
+      this.http.put(BaseService.Url + '/Events/' + siteEvent.id, attributes)
         .map(this.toJson)
         .map(event => event ? new SiteEvent(event) : null)
         .toPromise()
