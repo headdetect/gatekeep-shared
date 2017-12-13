@@ -17,14 +17,15 @@ export class EventsService extends BaseService {
   /**
    * Get's all events for this authorized user
    *
-   * @returns {Promise<SiteEvent[]>}
+   * @returns {Promise<[any, SiteEvent[]]>}
    */
-  public getEvents() : Promise<SiteEvent[]> {
-      return this.http.get(BaseService.Url + '/Events')
-        .map(this.toSuppressedJson)
-        .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
-        .catch(this.onError)
-        .toPromise();
+  public getEvents() : Promise<[any, SiteEvent[]]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Events')
+      .map(this.toSuppressedJson)
+      .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
+      .toPromise()
+    )
   }
 
   /**
@@ -33,7 +34,7 @@ export class EventsService extends BaseService {
    * @returns {Promise<SiteEvent>}
    * @param siteEvent
    */
-  public createEvent(siteEvent : SiteEvent) : Promise<SiteEvent> {
+  public createEvent(siteEvent : SiteEvent) : Promise<[any, SiteEvent]> {
     if (siteEvent === null)
       return Promise.reject("siteEvent specified was null");
 
@@ -43,36 +44,44 @@ export class EventsService extends BaseService {
       location : siteEvent.location,
       startDate : siteEvent.startDate.format(),
       endDate : siteEvent.endDate.format(),
-      maxVolunteersAllowed : siteEvent.maxVolunteersAllowed
+      maxVolunteersAllowed : siteEvent.maxVolunteersAllowed || 0
     };
 
-    return this.http.post(BaseService.Url + '/Events', attributes)
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Events', attributes)
       .map(this.toJson)
       .map(event => event ? new SiteEvent(event) : null)
-      .toPromise();
+      .toPromise()
+    );
   }
 
-  public addAttendees(siteEventId : number, personIds : Array<number>) : Promise<any> {
-    return this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personIds.join(',')}]`)
-      .toPromise();
+  public addAttendees(siteEventId : number, personIds : Array<number>) : Promise<[any, any]> {
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personIds.join(',')}]`)
+      .toPromise()
+    );
   }
 
-  public addAttendee(siteEventId : number, personId : number) : Promise<any> {
+  public addAttendee(siteEventId : number, personId : number) : Promise<[any, any]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personId}]`, options)
-      .toPromise();
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personId}]`, options)
+      .toPromise()
+    );
   }
 
-  public getAttendees(siteEventId : number) : Promise<Array<Person>> {
+  public getAttendees(siteEventId : number) : Promise<[any, Array<Person>]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(BaseService.Url + '/Events/' + siteEventId + '/Attendees', options)
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Events/' + siteEventId + '/Attendees', options)
       .map(this.toJson)
       .map(attendees => attendees ? this.mapArray<Person>(Person, attendees) : null)
-      .toPromise();
+      .toPromise()
+    );
   }
 
   /**
@@ -81,8 +90,10 @@ export class EventsService extends BaseService {
    * @param {number} eventId
    * @returns {Promise<any>}
    */
-  public deleteEvent(eventId : number) : Promise<any> {
-    return this.http.delete(BaseService.Url + '/Events/' + eventId)
-      .toPromise();
+  public deleteEvent(eventId : number) : Promise<[any, any]> {
+    return this.wrapErrorHandler(
+      this.http.delete(BaseService.Url + '/Events/' + eventId)
+      .toPromise()
+    );
   }
 }

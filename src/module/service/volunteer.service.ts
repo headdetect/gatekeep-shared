@@ -22,12 +22,14 @@ export class VolunteerService extends BaseService {
    * @param {string} phoneNumber
    * @returns {Promise<Volunteer>}
    */
-  public find(lastName : string, birthDate : string, phoneNumber : string) : Promise<Volunteer> {
-    return this.http
-      .get(`${BaseService.Url}/Volunteers/Find?lastName=${lastName}&birthDate=${birthDate}&phoneNumber=${phoneNumber}`)
-      .map(this.toSuppressedJson)
-      .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
-      .catch(this.onError)
-      .toPromise();
+  public find(lastName : string, birthDate : string, phoneNumber : string) : Promise<[any, Volunteer]> {
+    return this.wrapErrorHandler(
+      this.http
+        .get(`${BaseService.Url}/Volunteers/Find?lastName=${lastName}&birthDate=${birthDate}&phoneNumber=${phoneNumber}`)
+        .map(this.toSuppressedJson)
+        .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
+        .catch(this.onError)
+        .toPromise()
+    );
   }
 }

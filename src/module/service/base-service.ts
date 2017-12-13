@@ -71,6 +71,36 @@ export class BaseService {
   protected suppressError(error: any, next : Observable<any>) {
 
   }
+
+
+  /**
+   *
+   * A way to handle errors and objects received from an async/await service call
+   *
+   * For example:
+   *
+   * const [error, events] = await this.eventsService.getEvents();
+   *
+   * In a service:
+   *
+   *
+       public getEvents() : Promise<[any, SiteEvent[]]> {
+          return this.wrapErrorHandler(this.http.get(BaseService.Url + '/Events')
+            .map(this.toSuppressedJson)
+            .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
+            .catch(this.onError)
+            .toPromise())
+       }
+   *
+   * @param {Promise<any>} promise
+   * @returns {Promise<any[] | never>}
+   */
+  protected wrapErrorHandler(promise : Promise<any>) {
+    return promise.then(data => {
+      return [null, data];
+    })
+    .catch(err => [err]);
+  }
 }
 
 export interface BaseServiceConstructor<T extends BaseModel> {

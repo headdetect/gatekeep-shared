@@ -21,11 +21,13 @@ export class VisitorService extends BaseService {
    * @param {Visitor} visitor
    * @returns {Promise<any>}
    */
-  public logVisitor(visitor : Visitor) : Promise<any> {
-    return this.http.post(BaseService.Url + "/Visitors", visitor)
-      .map(this.toSuppressedJson)
-      .map(attrs => attrs ? new Visitor(attrs) : null)
-      .toPromise();
+  public logVisitor(visitor : Visitor) : Promise<[any, any]> {
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + "/Visitors", visitor)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Visitor(attrs) : null)
+      .toPromise()
+    );
   }
 
 }

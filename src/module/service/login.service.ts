@@ -15,16 +15,20 @@ export class LoginService extends BaseService {
     super();
   }
 
-  public login(username : string, password : string) : Promise<{}> {
-    return this.http.post(BaseService.Url + '/Account/Login', {
-      username: username,
-      password: password
-    })
-    .toPromise();
+  public login(username : string, password : string) : Promise<[any]> {
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Account/Login', {
+        username: username,
+        password: password
+      })
+      .toPromise()
+    )
   }
 
-  public logout() : Promise<{}> {
-      return this.http.post(BaseService.Url + '/Account/Logout', {})
-        .toPromise();
+  public logout() : Promise<[any]> {
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Account/Logout', {})
+      .toPromise()
+    );
   }
 }

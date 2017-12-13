@@ -19,10 +19,12 @@ export class OverviewService extends BaseService {
    *
    * @returns {Promise<Person[]>}
    */
-  public getOverview() : Promise<Person[]> {
-      return this.http.get(BaseService.Url + '/Overview')
-        .map(this.toSuppressedJson)
-        .map(overview => overview ? this.mapArray<Person>(Person, overview) : null)
-        .toPromise();
+  public getOverview() : Promise<[any, Person[]]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Overview')
+      .map(this.toSuppressedJson)
+      .map(overview => overview ? this.mapArray<Person>(Person, overview) : null)
+      .toPromise()
+    );
   }
 }
