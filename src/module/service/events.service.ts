@@ -55,6 +55,33 @@ export class EventsService extends BaseService {
     );
   }
 
+  /**
+   * Update an event with the specified parameters.
+   *
+   * @returns {Promise<SiteEvent>}
+   * @param siteEvent
+   */
+  public updateEvent(siteEvent : SiteEvent) : Promise<[any, SiteEvent]> {
+    if (siteEvent === null)
+      return Promise.reject("siteEvent specified was null");
+
+    const attributes = {
+      title : siteEvent.title,
+      description: "",
+      location : siteEvent.location,
+      startDate : siteEvent.startDate.format(),
+      endDate : siteEvent.endDate.format(),
+      maxVolunteersAllowed : siteEvent.maxVolunteersAllowed || 0
+    };
+
+    return this.wrapErrorHandler(
+      this.http.put(BaseService.Url + '/Events', attributes)
+        .map(this.toJson)
+        .map(event => event ? new SiteEvent(event) : null)
+        .toPromise()
+    );
+  }
+
   public addAttendees(siteEventId : number, personIds : Array<number>) : Promise<[any, any]> {
     return this.wrapErrorHandler(
       this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personIds.join(',')}]`)
