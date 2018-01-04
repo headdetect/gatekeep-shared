@@ -11,7 +11,7 @@ export class BaseService {
    * The URL for the GateKeep API
    * @type {string}
    */
-  public static Url = "http://gatekeep-dev.azurewebsites.net";
+  public static Url : string;
 
   /**
    * Converts the response into a proper json response.
@@ -84,18 +84,18 @@ export class BaseService {
    * In a service:
    *
    *
-       public getEvents() : Promise<[any, SiteEvent[]]> {
-          return this.wrapErrorHandler(this.http.get(BaseService.Url + '/Events')
-            .map(this.toSuppressedJson)
-            .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
-            .catch(this.onError)
-            .toPromise())
-       }
+      public getEvents() : Promise<[any, SiteEvent[]]> {
+         return this.wrapErrorHandler(this.http.get(BaseService.Url + '/Events')
+           .map(this.toSuppressedJson)
+           .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
+           .catch(this.onError)
+           .toPromise())
+      }
    *
    * @param {Promise<any>} promise
    * @returns {Promise<any[] | never>}
    */
-  protected wrapErrorHandler(promise : Promise<any>) {
+  protected wrapErrorHandler(promise : Promise<any>) : any {
     return promise.then(data => {
       return [null, data];
     })

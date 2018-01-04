@@ -263,6 +263,7 @@ gulp.task('ng-compile',() => {
     .then(() => ngc({ project: `${buildFolder}/tsconfig.lib.json` })
       .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
       .then(() => gulpUtil.log('ES2015 compilation succeeded.'))
+      .catch(e => gulpUtil.colors.red(e))
     )
     .catch(e => {
       gulpUtil.log(gulpUtil.colors.red('ng-compilation failed. See below for errors.\n'));
