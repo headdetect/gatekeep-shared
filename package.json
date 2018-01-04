@@ -22,7 +22,8 @@
   "bugs": {
     "url": "https://github.com/headdetect/gatekeep-shared/issues"
   },
-  "private": true,
+  "main": "dist/gatekeep-shared.js",
+  "types": "dist/gatekeep-shared.d.ts",
   "scripts": {
     "gulp": "gulp",
     "start": "gulp build",
