@@ -1,7 +1,7 @@
 {
   "name": "gatekeep-shared",
   "description": "Shared resources for gatekeep kiosk and administration application",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/headdetect/gatekeep-shared",
   "author": {
     "name": "Brayden Lopez",
