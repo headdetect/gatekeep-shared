@@ -2,7 +2,7 @@ import {BaseModel} from "./base-model";
 
 export class PhoneNumber extends BaseModel {
 
-  public id?: number;
+  public phoneNumberId?: number;
   public number?: string;
   public type?: string;
 

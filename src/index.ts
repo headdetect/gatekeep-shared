@@ -4,10 +4,10 @@ import {SuccessAnimationComponent} from "./module/component/success-animation.co
 import {CapitalizePipe} from "./module/pipes/capitalize.pipe";
 import {BaseService} from "./module/service/base-service";
 import {EventsService} from "./module/service/events.service";
-import {LoginService} from "./module/service/login.service";
 import {VisitorService} from "./module/service/visitor.service";
 import {VolunteerService} from "./module/service/volunteer.service";
 import {OverviewService} from "./module/service/overview.service";
+import {AccountService} from "./module/service/account.service";
 
 export * from './module/models/';
 export * from './module/service/';
@@ -30,7 +30,7 @@ export * from './module/pipes';
   providers: [
     BaseService,
     EventsService,
-    LoginService,
+    AccountService,
     VisitorService,
     VolunteerService,
     OverviewService
@@ -43,7 +43,7 @@ export class GatekeepModule {
       providers: [
         BaseService,
         EventsService,
-        LoginService,
+        AccountService,
         VisitorService,
         VolunteerService,
         OverviewService

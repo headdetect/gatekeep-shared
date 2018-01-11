@@ -9,7 +9,7 @@ import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class LoginService extends BaseService {
+export class AccountService extends BaseService {
 
   constructor(public http : Http) {
     super();

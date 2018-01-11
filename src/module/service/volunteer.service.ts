@@ -14,6 +14,26 @@ export class VolunteerService extends BaseService {
   }
 
 
+  public getVolunteers() : Promise<[any, Volunteer[]]> {
+    return null;
+  }
+
+  public createVolunteer(volunteer : Volunteer) : Promise<[any, Volunteer]> {
+    return null;
+  }
+
+  public deleteVolunteer(volunteerId : number) : Promise<[any]> {
+    return null;
+  }
+
+  public getVolunteer(volunteerId : number) : Promise<[any, Volunteer]> {
+    return null;
+  }
+
+  public updateVolunteer(volunteer : Volunteer) : Promise<[any, Volunteer]> {
+    return null;
+  }
+
   /**
    * Finds a volunteer with the specified parameters
    *
@@ -25,11 +45,12 @@ export class VolunteerService extends BaseService {
   public find(lastName : string, birthDate : string, phoneNumber : string) : Promise<[any, Volunteer]> {
     return this.wrapErrorHandler(
       this.http
-        .get(`${BaseService.Url}/Volunteers/Find?lastName=${lastName}&birthDate=${birthDate}&phoneNumber=${phoneNumber}`)
+        .get(`${BaseService.Url}/Volunteers/Find?lastName=${lastName}&birthdate=${birthDate}&phoneNumber=${phoneNumber}`)
         .map(this.toSuppressedJson)
         .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
         .catch(this.onError)
         .toPromise()
     );
   }
+
 }
