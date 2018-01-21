@@ -4,3 +4,4 @@ export * from './overview.service';
 export * from './visitor.service';
 export * from './volunteer.service';
 export * from './base-service';
+export * from './person.service';

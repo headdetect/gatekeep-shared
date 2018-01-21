@@ -32,8 +32,6 @@ export class BaseService {
    * @returns {any}
    */
   protected toSuppressedJson(response : Response) {
-    console.log(response);
-
     if (!response.ok || response.text() === "") return null;
 
     return response.json() || {};
