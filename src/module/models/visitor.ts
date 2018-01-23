@@ -3,7 +3,7 @@ import {Person} from "./person";
 
 export class Visitor extends Person {
 
-  public id?: number;
+  public visitorId?: number;
   public checkInDateTime?: moment.Moment;
 
   constructor(attributes: any) {

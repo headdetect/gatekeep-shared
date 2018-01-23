@@ -3,7 +3,7 @@ import {Person} from "./person";
 
 export class Volunteer extends Person {
 
-  public id?: number;
+  public volunteerId?: number;
 
   constructor(attributes: any) {
     super(attributes);

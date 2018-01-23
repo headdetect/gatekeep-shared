@@ -15,13 +15,51 @@ export class VisitorService extends BaseService {
     super();
   }
 
+  public getVisitors() : Promise<[any, Visitor[]]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + "/Visitors")
+        .map(this.toSuppressedJson)
+        .map(visitors => visitors ? this.mapArray<Visitor>(Visitor, visitors) : null)
+        .toPromise()
+    );
+  }
+
+  public deleteVisitor(visitorId : number) : Promise<[any]> {
+    return this.wrapErrorHandler(
+      this.http.delete(BaseService.Url + "/Visitors/" + visitorId)
+        .map(this.toSuppressedJson)
+        .toPromise()
+    );
+  }
+
+  public getVisitor(visitorId : number) : Promise<[any, Visitor]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + "/Visitors/" + visitorId)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Visitor(attrs) : null)
+        .toPromise()
+    );
+  }
+
+  public updateVisitor(visitor : Visitor) : Promise<[any, Visitor]> {
+    if (visitor === null)
+      return Promise.reject("visitor specified was null");
+
+    return this.wrapErrorHandler(
+      this.http.put(BaseService.Url + "/Visitors/" + visitor.visitorId, visitor)
+        .map(this.toJson)
+        .map(attrs => attrs ? new Visitor(attrs) : null)
+        .toPromise()
+    );
+  }
+
   /**
    * Creates a log entry with the specified visitor
    *
    * @param {Visitor} visitor
    * @returns {Promise<any>}
    */
-  public logVisitor(visitor : Visitor) : Promise<[any, any]> {
+  public logVisitor(visitor : Visitor) : Promise<[any, Visitor]> {
     return this.wrapErrorHandler(
       this.http.post(BaseService.Url + "/Visitors", visitor)
         .map(this.toSuppressedJson)

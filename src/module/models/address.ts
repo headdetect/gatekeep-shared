@@ -2,7 +2,7 @@ import {BaseModel} from "./base-model";
 
 export class Address extends BaseModel {
 
-  public id?: number;
+  public addressId?: number;
   public street1?: string;
   public street2?: string;
   public city?: string;

@@ -66,7 +66,7 @@ export class EventsService extends BaseService {
       return Promise.reject("siteEvent specified was null");
 
     const attributes = {
-      id: siteEvent.id,
+      eventId: siteEvent.eventId,
       title : siteEvent.title,
       description: "",
       location : siteEvent.location,
@@ -76,14 +76,14 @@ export class EventsService extends BaseService {
     };
 
     return this.wrapErrorHandler(
-      this.http.put(BaseService.Url + '/Events/' + siteEvent.id, attributes)
+      this.http.put(BaseService.Url + '/Events/' + siteEvent.eventId, attributes)
         .map(this.toJson)
         .map(event => event ? new SiteEvent(event) : null)
         .toPromise()
     );
   }
 
-  public addAttendees(siteEventId : number, personIds : Array<number>) : Promise<[any, any]> {
+  public addAttendees(siteEventId : number, personIds : number[]) : Promise<[any, any]> {
     return this.wrapErrorHandler(
       this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personIds.join(',')}]`)
       .toPromise()
@@ -100,7 +100,7 @@ export class EventsService extends BaseService {
     );
   }
 
-  public getAttendees(siteEventId : number) : Promise<[any, Array<Person>]> {
+  public getAttendees(siteEventId : number) : Promise<[any, Person[]]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
@@ -111,6 +111,19 @@ export class EventsService extends BaseService {
       .toPromise()
     );
   }
+
+  public removeAttendee(siteEventId : number, personId : number) : Promise<[any, any]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.wrapErrorHandler(
+      this.http.delete(BaseService.Url + '/Events/' + siteEventId + '/Attendees', options)
+        .map(this.toJson)
+        .map(attendees => attendees ? this.mapArray<Person>(Person, attendees) : null)
+        .toPromise()
+    );
+  }
+
 
   /**
    * Deletes (archives really) the specified event.
