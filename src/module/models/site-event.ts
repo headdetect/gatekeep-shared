@@ -53,12 +53,12 @@ export class SiteEvent extends BaseModel {
   /**
    * Start time of the event
    */
-  public startTime : moment.Moment | string;
+  public startTime : string;
 
   /**
    * End time of the event
    */
-  public endTime : moment.Moment | string;
+  public endTime : string;
 
   /**
    * Total number of people attending this event
@@ -78,12 +78,6 @@ export class SiteEvent extends BaseModel {
 
     if (this.endDate)
       this.endDate = moment(this.endDate);
-
-    if (this.startTime)
-      this.startTime = moment(this.startTime);
-
-    if (this.endTime)
-      this.endTime = moment(this.endTime);
 
     if (this.recurrenceEndDate)
       this.recurrenceEndDate = moment(this.recurrenceEndDate);
