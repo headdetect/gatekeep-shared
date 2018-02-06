@@ -13,6 +13,7 @@ export class Person extends BaseModel {
   public birthdate?: moment.Moment;
   public addresses?: Array<Address>;
   public phoneNumbers?: Array<PhoneNumber>;
+  public image?: string;
 
   constructor(attributes : any = {}) {
     super(attributes);
