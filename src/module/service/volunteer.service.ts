@@ -19,7 +19,12 @@ export class VolunteerService extends BaseService {
   }
 
   public createVolunteer(volunteer : Volunteer) : Promise<[any, Volunteer]> {
-    return null;
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Volunteers', volunteer)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
+        .toPromise()
+    )
   }
 
   public deleteVolunteer(volunteerId : number) : Promise<[any]> {
