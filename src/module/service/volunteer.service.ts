@@ -13,9 +13,17 @@ export class VolunteerService extends BaseService {
     super();
   }
 
-
+  /**
+   * Gets all volunteers
+   * @returns {Promise<[any , Volunteer[]]>}
+   */
   public getVolunteers() : Promise<[any, Volunteer[]]> {
-    return null;
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Volunteers')
+        .map(this.toSuppressedJson)
+        .map(volunteers => volunteers ? this.mapArray<Volunteer>(Volunteer, volunteers) : null)
+        .toPromise()
+    );
   }
 
   public createVolunteer(volunteer : Volunteer) : Promise<[any, Volunteer]> {
