@@ -53,12 +53,12 @@ export class SiteEvent extends BaseModel {
   /**
    * Start time of the event
    */
-  public startTime : moment.Moment;
+  public startTime : moment.Moment | string;
 
   /**
    * End time of the event
    */
-  public endTime : moment.Moment;
+  public endTime : moment.Moment | string;
 
   /**
    * Total number of people attending this event
