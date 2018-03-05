@@ -30,7 +30,7 @@ export class SiteEvent extends BaseModel {
   /**
    * Occurrences of this event happen through this date
    */
-  public recurrenceEndDate? : moment.Moment;
+  public recurrenceEndDate? : number;
 
   public title : string;
 
@@ -39,12 +39,17 @@ export class SiteEvent extends BaseModel {
   /**
    * Date of the event, or for recurring events, the first date of the recurrence.
    */
-  public date : moment.Moment;
+  public date : number;
+
+  public dateString: string;
 
   /**
    * End date of a multi day event, not required for single day events.
    */
-  public endDate? : moment.Moment;
+  public endDate? : number;
+
+  public endDateString? : string;
+
 
   public creator : string;
 
@@ -53,12 +58,16 @@ export class SiteEvent extends BaseModel {
   /**
    * Start time of the event
    */
-  public startTime : string;
+  public startTime : number;
+
+  public startTimeString: string;
 
   /**
    * End time of the event
    */
-  public endTime : string;
+  public endTime : number;
+
+  public endTimeString: string;
 
   /**
    * Total number of people attending this event
@@ -70,16 +79,12 @@ export class SiteEvent extends BaseModel {
    */
   public maxVolunteersAllowed : number;
 
+  /**
+    If the event is made to be private. This event will not show up in join-able events lists.
+   */
+  public isPrivateEvent?: boolean;
+
   constructor(attributes: any) {
     super(attributes);
-
-    if (this.date)
-      this.date = moment(this.date);
-
-    if (this.endDate)
-      this.endDate = moment(this.endDate);
-
-    if (this.recurrenceEndDate)
-      this.recurrenceEndDate = moment(this.recurrenceEndDate);
   }
 }

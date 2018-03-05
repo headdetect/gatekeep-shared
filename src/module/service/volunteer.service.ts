@@ -47,23 +47,42 @@ export class VolunteerService extends BaseService {
     return null;
   }
 
+  // TODO: enable searching via first,last,dob
+  // /**
+  //  * Finds a volunteer with the specified parameters
+  //  *
+  //  * @param {string} firstName
+  //  * @param {string} lastName
+  //  * @param {string} birthDate
+  //  * @returns {Promise<Volunteer>}
+  //  */
+  // public find(firstName : string, lastName : string, birthDate : string) : Promise<[any, Volunteer]> {
+  //   return this.wrapErrorHandler(
+  //     this.http
+  //       .get(`${BaseService.Url}/Volunteers/Find?firstName=${firstName}&lastName=${lastName}&birthdate=${birthDate}`)
+  //       .map(this.toSuppressedJson)
+  //       .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
+  //       .catch(this.onError)
+  //       .toPromise()
+  //   );
+  // }
+
   /**
    * Finds a volunteer with the specified parameters
    *
+   * @param {string} firstName
    * @param {string} lastName
    * @param {string} birthDate
-   * @param {string} phoneNumber
    * @returns {Promise<Volunteer>}
    */
-  public find(lastName : string, birthDate : string, phoneNumber : string) : Promise<[any, Volunteer]> {
+  public find(lastName : string, dob : string, phoneNumber : string) : Promise<[any, Volunteer]> {
     return this.wrapErrorHandler(
       this.http
-        .get(`${BaseService.Url}/Volunteers/Find?lastName=${lastName}&birthdate=${birthDate}&phoneNumber=${phoneNumber}`)
+        .get(`${BaseService.Url}/Volunteers/Find?lastName=${lastName}&phoneNumber=${phoneNumber}&birthdate=${dob}`)
         .map(this.toSuppressedJson)
         .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
         .catch(this.onError)
         .toPromise()
     );
   }
-
 }

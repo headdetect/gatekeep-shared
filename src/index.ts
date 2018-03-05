@@ -22,7 +22,6 @@ export * from './module/pipes';
   exports: [
     SuccessAnimationComponent,
     CapitalizePipe,
-
   ],
   declarations: [
     SuccessAnimationComponent,
