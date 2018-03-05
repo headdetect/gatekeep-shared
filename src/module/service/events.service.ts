@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
-import {SiteEvent} from "../models/site-event";
+import {SiteEvent} from "../models";
 import {BaseService} from "./base-service";
 import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
-import {Person} from "../models/person";
+import {Person} from "../models";
 import moment from "moment";
 
 @Injectable()
@@ -101,14 +101,12 @@ export class EventsService extends BaseService {
     );
   }
 
-  public removeAttendee(siteEventId : number, personId : number) : Promise<[any, any]> {
+  public removeAttendee(siteEventId : number, personId : number) : Promise<any> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers, body: `[${personId}]` });
 
     return this.wrapErrorHandler(
       this.http.delete(BaseService.Url + '/Events/' + siteEventId + '/Attendees', options)
-        .map(this.toJson)
-        .map(attendees => attendees ? this.mapArray<Person>(Person, attendees) : null)
         .toPromise()
     );
   }
