@@ -5,3 +5,4 @@ export * from './visitor.service';
 export * from './volunteer.service';
 export * from './base-service';
 export * from './person.service';
+export * from './help.service';

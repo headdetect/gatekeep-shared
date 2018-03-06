@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
-import {SiteEvent} from "../models/site-event";
+import {SiteEvent} from "../models";
 import {BaseService} from "./base-service";
 import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
-import {Person} from "../models/person";
+import {Person} from "../models";
 import moment from "moment";
 
 @Injectable()
@@ -22,12 +22,16 @@ export class EventsService extends BaseService {
    */
   public getEvents(
     rangeStart : moment.Moment = moment(),
-    rangeEnd : moment.Moment = moment().add(1, 'month')
+    rangeEnd : moment.Moment = moment().add(1, 'month'),
+    includePrivate: boolean = false
   ) : Promise<[any, SiteEvent[]]> {
     return this.wrapErrorHandler(
       this.http.get(`${BaseService.Url}/Events?filterStartDate=${rangeStart.format('L')}&filterEndDate=${rangeEnd.format('L')}`)
       .map(this.toSuppressedJson)
-      .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
+      .map(events => events ?
+        this.mapArray<SiteEvent>(SiteEvent, events)
+            .filter(e => !e.isPrivateEvent || includePrivate) : null
+      )
       .toPromise()
     )
   }
@@ -41,15 +45,6 @@ export class EventsService extends BaseService {
   public createEvent(siteEvent : SiteEvent) : Promise<[any, SiteEvent]> {
     if (siteEvent === null)
       return Promise.reject("siteEvent specified was null");
-
-    // const attributes = {
-    //   title : siteEvent.title,
-    //   description: "",
-    //   location : siteEvent.location,
-    //   startDate : siteEvent.date.format(),
-    //   endDate : siteEvent.endDate.format(),
-    //   maxVolunteersAllowed : siteEvent.maxVolunteersAllowed || 0
-    // };
 
     return this.wrapErrorHandler(
       this.http.post(BaseService.Url + '/Events', siteEvent)
@@ -68,16 +63,6 @@ export class EventsService extends BaseService {
   public updateEvent(siteEvent : SiteEvent) : Promise<[any, SiteEvent]> {
     if (siteEvent === null)
       return Promise.reject("siteEvent specified was null");
-
-    // const attributes = {
-    //   eventId: siteEvent.eventId,
-    //   title : siteEvent.title,
-    //   description: "",
-    //   location : siteEvent.location,
-    //   startDate : siteEvent.date.format(),
-    //   endDate : siteEvent.endDate.format(),
-    //   maxVolunteersAllowed : siteEvent.maxVolunteersAllowed || 0
-    // };
 
     return this.wrapErrorHandler(
       this.http.put(BaseService.Url + '/Events/' + siteEvent.eventId, siteEvent)
@@ -116,14 +101,12 @@ export class EventsService extends BaseService {
     );
   }
 
-  public removeAttendee(siteEventId : number, personId : number) : Promise<[any, any]> {
+  public removeAttendee(siteEventId : number, personId : number) : Promise<any> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers, body: `[${personId}]` });
 
     return this.wrapErrorHandler(
       this.http.delete(BaseService.Url + '/Events/' + siteEventId + '/Attendees', options)
-        .map(this.toJson)
-        .map(attendees => attendees ? this.mapArray<Person>(Person, attendees) : null)
         .toPromise()
     );
   }
