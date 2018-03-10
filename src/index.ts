@@ -10,6 +10,8 @@ import {VolunteerService} from "./module/service";
 import {OverviewService} from "./module/service";
 import {PersonService} from "./module/service";
 import {HelpService} from "./module/service";
+import {SiteService} from "./module/service/site.service";
+import {OrganizationService} from "./module/service/organization.service";
 
 export * from './module/models/';
 export * from './module/service/';
@@ -37,6 +39,8 @@ export * from './module/pipes';
     PersonService,
     OverviewService,
     HelpService,
+    SiteService,
+    OrganizationService,
   ]
 })
 export class GatekeepModule {
