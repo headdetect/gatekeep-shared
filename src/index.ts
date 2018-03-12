@@ -2,7 +2,7 @@ import {ModuleWithProviders, NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {SuccessAnimationComponent} from "./module/component";
 import {CapitalizePipe} from "./module/pipes";
-import {BaseService} from "./module/service";
+import {BaseService, SettingsService} from "./module/service";
 import {EventsService} from "./module/service";
 import {AccountService} from "./module/service";
 import {VisitorService} from "./module/service";
@@ -10,8 +10,8 @@ import {VolunteerService} from "./module/service";
 import {OverviewService} from "./module/service";
 import {PersonService} from "./module/service";
 import {HelpService} from "./module/service";
-import {SiteService} from "./module/service/site.service";
-import {OrganizationService} from "./module/service/organization.service";
+import {SiteService} from "./module/service";
+import {OrganizationService} from "./module/service";
 
 export * from './module/models/';
 export * from './module/service/';
@@ -41,6 +41,7 @@ export * from './module/pipes';
     HelpService,
     SiteService,
     OrganizationService,
+    SettingsService,
   ]
 })
 export class GatekeepModule {
@@ -55,7 +56,9 @@ export class GatekeepModule {
         VolunteerService,
         PersonService,
         OverviewService,
-        HelpService
+        HelpService,
+        SiteService,
+        SettingsService
       ]
     };
   }
