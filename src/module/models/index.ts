@@ -6,3 +6,5 @@ export * from './phone-number';
 export * from './site';
 export * from './visitor';
 export * from './volunteer';
+export * from './organization';
+export * from './setting';
