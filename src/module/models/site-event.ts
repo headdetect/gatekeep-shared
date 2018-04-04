@@ -84,6 +84,11 @@ export class SiteEvent extends BaseModel {
    */
   public isPrivateEvent?: boolean;
 
+  /**
+   * The site this event belongs to
+   */
+  public siteId: number;
+
   constructor(attributes: any) {
     super(attributes);
   }

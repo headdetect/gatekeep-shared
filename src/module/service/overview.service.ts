@@ -15,13 +15,13 @@ export class OverviewService extends BaseService {
   }
 
   /**
-   * Get's overview
+   * Gets the site's overview
    *
    * @returns {Promise<Person[]>}
    */
-  public getOverview() : Promise<[any, Person[]]> {
+  public getOverview(siteId: number) : Promise<[any, Person[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Overview')
+      this.http.get(BaseService.Url + '/Overview/' + siteId)
       .map(this.toSuppressedJson)
       .map(overview => overview ? this.mapArray<Person>(Person, overview) : null)
       .toPromise()
