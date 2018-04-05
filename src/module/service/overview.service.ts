@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
-import {Person} from "../models/person";
 import {BaseService} from "./base-service";
 import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
-import moment from "moment";
+import {PersonOverview} from "../models/person-overview";
 
 @Injectable()
 export class OverviewService extends BaseService {
@@ -19,11 +18,11 @@ export class OverviewService extends BaseService {
    *
    * @returns {Promise<Person[]>}
    */
-  public getOverview(siteId: number) : Promise<[any, Person[]]> {
+  public getOverview(siteId: number) : Promise<[any, PersonOverview[]]> {
     return this.wrapErrorHandler(
       this.http.get(BaseService.Url + '/Overview/' + siteId)
       .map(this.toSuppressedJson)
-      .map(overview => overview ? this.mapArray<Person>(Person, overview) : null)
+      .map(overview => overview ? this.mapArray<PersonOverview>(PersonOverview, overview) : null)
       .toPromise()
     );
   }
