@@ -8,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
 
-import {Person} from '../models'
+import {Person, SiteEvent} from '../models'
 
 @Injectable()
 export class PersonService extends BaseService {
@@ -22,6 +22,15 @@ export class PersonService extends BaseService {
       this.http.get(BaseService.Url + "/People/" + personId)
         .map(this.toSuppressedJson)
         .map(attrs => attrs ? new Person(attrs) : null)
+        .toPromise()
+    );
+  }
+
+  public getPersonsEvents(personId : number) : Promise<[any, SiteEvent[]]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + "/People/" + personId)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new SiteEvent(attrs) : null)
         .toPromise()
     );
   }

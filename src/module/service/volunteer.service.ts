@@ -36,15 +36,30 @@ export class VolunteerService extends BaseService {
   }
 
   public deleteVolunteer(volunteerId : number) : Promise<[any]> {
-    return null;
+    return this.wrapErrorHandler(
+      this.http.delete(BaseService.Url + '/Volunteers/' + volunteerId)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
+        .toPromise()
+    );
   }
 
   public getVolunteer(volunteerId : number) : Promise<[any, Volunteer]> {
-    return null;
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Volunteers/' + volunteerId)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
+        .toPromise()
+    );
   }
 
   public updateVolunteer(volunteer : Volunteer) : Promise<[any, Volunteer]> {
-    return null;
+    return this.wrapErrorHandler(
+      this.http.put(BaseService.Url + '/Volunteers/' + volunteer.volunteerId, volunteer)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
+        .toPromise()
+    );
   }
 
   /**
@@ -62,6 +77,15 @@ export class VolunteerService extends BaseService {
         .map(this.toSuppressedJson)
         .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
         .catch(this.onError)
+        .toPromise()
+    );
+  }
+
+  public getVolunteerByPersonId(personId : number) : Promise<[any, Volunteer]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Volunteers/ByPerson/' + personId)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
         .toPromise()
     );
   }
