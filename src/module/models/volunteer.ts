@@ -7,6 +7,14 @@ export class Volunteer extends Person {
   public applicationDate?: moment.Moment;
   public applicationStatus?: string;
 
+  // User info //
+
+  public username: string;
+
+  public password: string; // Should just be populated on post only. //
+
+  public email: string;
+
   constructor(attributes: any = {}) {
     super(attributes);
 

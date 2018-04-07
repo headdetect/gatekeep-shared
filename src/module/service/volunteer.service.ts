@@ -32,40 +32,35 @@ export class VolunteerService extends BaseService {
         .map(this.toSuppressedJson)
         .map(attrs => attrs ? new Volunteer(attrs) : null)
         .toPromise()
-    )
+    );
   }
 
   public deleteVolunteer(volunteerId : number) : Promise<[any]> {
-    return null;
+    return this.wrapErrorHandler(
+      this.http.delete(BaseService.Url + '/Volunteers/' + volunteerId)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
+        .toPromise()
+    );
   }
 
   public getVolunteer(volunteerId : number) : Promise<[any, Volunteer]> {
-    return null;
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Volunteers/' + volunteerId)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
+        .toPromise()
+    );
   }
 
   public updateVolunteer(volunteer : Volunteer) : Promise<[any, Volunteer]> {
-    return null;
+    return this.wrapErrorHandler(
+      this.http.put(BaseService.Url + '/Volunteers/' + volunteer.volunteerId, volunteer)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
+        .toPromise()
+    );
   }
-
-  // TODO: enable searching via first,last,dob
-  // /**
-  //  * Finds a volunteer with the specified parameters
-  //  *
-  //  * @param {string} firstName
-  //  * @param {string} lastName
-  //  * @param {string} birthDate
-  //  * @returns {Promise<Volunteer>}
-  //  */
-  // public find(firstName : string, lastName : string, birthDate : string) : Promise<[any, Volunteer]> {
-  //   return this.wrapErrorHandler(
-  //     this.http
-  //       .get(`${BaseService.Url}/Volunteers/Find?firstName=${firstName}&lastName=${lastName}&birthdate=${birthDate}`)
-  //       .map(this.toSuppressedJson)
-  //       .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
-  //       .catch(this.onError)
-  //       .toPromise()
-  //   );
-  // }
 
   /**
    * Finds a volunteer with the specified parameters
@@ -75,13 +70,22 @@ export class VolunteerService extends BaseService {
    * @param {string} birthDate
    * @returns {Promise<Volunteer>}
    */
-  public find(lastName : string, dob : string, phoneNumber : string) : Promise<[any, Volunteer]> {
+  public find(firstName : string, lastName : string, birthDate : string) : Promise<[any, Volunteer]> {
     return this.wrapErrorHandler(
       this.http
-        .get(`${BaseService.Url}/Volunteers/Find?lastName=${lastName}&phoneNumber=${phoneNumber}&birthdate=${dob}`)
+        .get(`${BaseService.Url}/Volunteers/Find?firstName=${firstName}&lastName=${lastName}&birthdate=${birthDate}`)
         .map(this.toSuppressedJson)
         .map(volunteer => volunteer ? new Volunteer(volunteer) : null)
         .catch(this.onError)
+        .toPromise()
+    );
+  }
+
+  public getVolunteerByPersonId(personId : number) : Promise<[any, Volunteer]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Volunteers/ByPerson/' + personId)
+        .map(this.toSuppressedJson)
+        .map(attrs => attrs ? new Volunteer(attrs) : null)
         .toPromise()
     );
   }

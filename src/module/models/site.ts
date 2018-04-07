@@ -1,4 +1,5 @@
 import {BaseModel} from "./base-model";
+import {Address} from "./address";
 
 export class Site extends BaseModel {
 
@@ -8,10 +9,9 @@ export class Site extends BaseModel {
    */
   public name : string;
 
-  /**
-   * A url/path to the branding image
-   */
-  public image : string;
+  public address: Address;
+
+  public siteId: number;
 
   constructor(attributes: any) {
     super(attributes);

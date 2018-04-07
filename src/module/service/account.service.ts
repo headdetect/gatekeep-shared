@@ -15,7 +15,7 @@ export class AccountService extends BaseService {
     super();
   }
 
-  public login(username : string, password : string) : Promise<[any]> {
+  public login(username : string, password : string) : Promise<[any, {userId: string}]> {
     return this.wrapErrorHandler(
       this.http.post(BaseService.Url + '/Account/Login', {
         username: username,

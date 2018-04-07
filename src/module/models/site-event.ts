@@ -51,7 +51,7 @@ export class SiteEvent extends BaseModel {
   public endDateString? : string;
 
 
-  public creator : string;
+  public presentor : string;
 
   public eventId? : number;
 
@@ -83,6 +83,11 @@ export class SiteEvent extends BaseModel {
     If the event is made to be private. This event will not show up in join-able events lists.
    */
   public isPrivateEvent?: boolean;
+
+  /**
+   * The site this event belongs to
+   */
+  public siteId: number;
 
   constructor(attributes: any) {
     super(attributes);
