@@ -20,7 +20,7 @@ export class AccountService extends BaseService {
       this.http.post(BaseService.Url + '/Account/Login', {
         username: username,
         password: password
-      }, { withCredentials: true })
+      })
       .toPromise()
     )
   }
