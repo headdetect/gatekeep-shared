@@ -10,7 +10,7 @@ export class Person extends BaseModel {
   public middleName?: string;
   public lastName?: string;
   public gender?: string;
-  public birthdate?: moment.Moment;
+  public birthdate?: moment.Moment | Date;
   public addresses?: Array<Address>;
   public phoneNumbers?: Array<PhoneNumber>;
   public image?: string;

@@ -4,7 +4,7 @@ import {Person} from "./person";
 export class Volunteer extends Person {
 
   public volunteerId?: number;
-  public applicationDate?: moment.Moment;
+  public applicationDate?: moment.Moment | Date;
   public applicationStatus?: string;
 
   // User info //
