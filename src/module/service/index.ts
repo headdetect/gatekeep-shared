@@ -9,3 +9,5 @@ export * from './help.service';
 export * from './site.service';
 export * from './organization.service';
 export * from './settings.service';
+export * from './user.service';
+export * from './kiosk.service';
