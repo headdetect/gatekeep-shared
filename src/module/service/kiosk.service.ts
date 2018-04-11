@@ -50,4 +50,13 @@ export class KioskService extends BaseService {
     );
   }
 
+  public kioskIdExists(kioskId: string) : Promise<[any, boolean]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Kiosk/Exists?kioskId=' + kioskId)
+        .map(this.toSuppressedJson)
+        .map(event => event ? event.exists : null)
+        .toPromise()
+    );
+  }
+
 }

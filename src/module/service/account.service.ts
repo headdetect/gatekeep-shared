@@ -7,6 +7,7 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
+import {User} from "../models";
 
 @Injectable()
 export class AccountService extends BaseService {
@@ -15,13 +16,15 @@ export class AccountService extends BaseService {
     super();
   }
 
-  public login(username : string, password : string) : Promise<[any, {userId: string}]> {
+  public login(username : string, password : string) : Promise<[any, User]> {
     return this.wrapErrorHandler(
       this.http.post(BaseService.Url + '/Account/Login', {
         username: username,
         password: password
-      }, { withCredentials: true })
-      .toPromise()
+      }, {})
+        .map(this.toSuppressedJson)
+        .map(event => event ? new User(event) : null)
+        .toPromise()
     )
   }
 
