@@ -20,7 +20,7 @@ export class OverviewService extends BaseService {
    */
   public getOverview(siteId: number) : Promise<[any, PersonOverview[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Overview/' + siteId)
+      this.http.get(BaseService.Url + '/Overview/' + siteId, this.options())
       .map(this.toSuppressedJson)
       .map(overview => overview ? this.mapArray<PersonOverview>(PersonOverview, overview) : null)
       .toPromise()

@@ -21,7 +21,7 @@ export class AccountService extends BaseService {
       this.http.post(BaseService.Url + '/Account/Login', {
         username: username,
         password: password
-      }, {})
+      }, this.options())
         .map(this.toSuppressedJson)
         .map(event => event ? new User(event) : null)
         .toPromise()
@@ -30,8 +30,17 @@ export class AccountService extends BaseService {
 
   public logout() : Promise<[any]> {
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Account/Logout', {})
+      this.http.post(BaseService.Url + '/Account/Logout', {}, this.options())
       .toPromise()
+    );
+  }
+
+  public authenticated() : Promise<[any, boolean]> {
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Account/Authenticated', this.options())
+        .map(this.toSuppressedJson)
+        .map(event => event ? event.authenticated : null)
+        .toPromise()
     );
   }
 }

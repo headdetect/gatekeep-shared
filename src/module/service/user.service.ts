@@ -18,7 +18,7 @@ export class UserService extends BaseService {
 
   public getUserByPersonId(personId: number) : Promise<[any, User]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Users/ByPerson/' + personId)
+      this.http.get(BaseService.Url + '/Users/ByPerson/' + personId, this.options())
         .map(this.toSuppressedJson)
         .map(event => event ? new User(event) : null)
         .toPromise()
@@ -27,7 +27,7 @@ export class UserService extends BaseService {
 
   public getUser(userId: string) : Promise<[any, User]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Users/' + userId)
+      this.http.get(BaseService.Url + '/Users/' + userId, this.options())
         .map(this.toSuppressedJson)
         .map(event => event ? new User(event) : null)
         .toPromise()
@@ -36,7 +36,7 @@ export class UserService extends BaseService {
 
   public getUsers() : Promise<[any, User[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Users/')
+      this.http.get(BaseService.Url + '/Users/', this.options())
         .map(this.toSuppressedJson)
         .map(event => event ? this.mapArray<User>(User, event) : null)
         .toPromise()
@@ -45,7 +45,7 @@ export class UserService extends BaseService {
 
   public createUser(user: User) : Promise<[any, User]> {
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Users/', user)
+      this.http.post(BaseService.Url + '/Users/', user, this.options())
         .map(this.toSuppressedJson)
         .map(event => event ? new User(event) : null)
         .toPromise()
@@ -63,7 +63,7 @@ export class UserService extends BaseService {
 
   public updateEmail(userId: string, newEmail: string): Promise<[any, any]> {
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Users/' + userId, newEmail)
+      this.http.post(BaseService.Url + '/Users/' + userId, newEmail, this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );
@@ -76,10 +76,22 @@ export class UserService extends BaseService {
     };
 
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Users/' + userId + '/Password', passwords)
+      this.http.post(BaseService.Url + '/Users/' + userId + '/Password', passwords, this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );
   }
 
+  /**
+   * Delete the specified user
+   *
+   * @returns
+   */
+  public deleteUser(userId: string) : Promise<[any, any]> {
+    return this.wrapErrorHandler(
+      this.http.delete(BaseService.Url + '/Users/' + userId, this.options())
+        .map(this.toSuppressedJson)
+        .toPromise()
+    );
+  }
 }

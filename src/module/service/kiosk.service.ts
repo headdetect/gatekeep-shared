@@ -17,7 +17,7 @@ export class KioskService extends BaseService {
 
   public getKiosk(kioskId: string) : Promise<[any, Kiosk]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Kiosk/' + kioskId)
+      this.http.get(BaseService.Url + '/Kiosk/' + kioskId, this.options())
         .map(this.toSuppressedJson)
         .map(event => event ? new Kiosk(event) : null)
         .toPromise()
@@ -26,7 +26,7 @@ export class KioskService extends BaseService {
 
   public getKiosks() : Promise<[any, Kiosk[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Kiosk/')
+      this.http.get(BaseService.Url + '/Kiosk/', this.options())
         .map(this.toSuppressedJson)
         .map(kiosks => kiosks ? this.mapArray<Kiosk>(Kiosk, kiosks) : null)
         .toPromise()
@@ -35,7 +35,7 @@ export class KioskService extends BaseService {
 
   public createKiosk(kiosk: Kiosk): Promise<[any, Kiosk]> {
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Kiosk', kiosk)
+      this.http.post(BaseService.Url + '/Kiosk', kiosk, this.options())
         .map(this.toSuppressedJson)
         .map(newKiosk => newKiosk ? new Kiosk(newKiosk) : null)
         .toPromise()
@@ -44,7 +44,7 @@ export class KioskService extends BaseService {
 
   public deletekiosk(kioskId: string): Promise<[any, any]> {
     return this.wrapErrorHandler(
-      this.http.delete(BaseService.Url + '/Kiosk/' + kioskId)
+      this.http.delete(BaseService.Url + '/Kiosk/' + kioskId, this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );
@@ -52,7 +52,7 @@ export class KioskService extends BaseService {
 
   public kioskIdExists(kioskId: string) : Promise<[any, boolean]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Kiosk/Exists?kioskId=' + kioskId)
+      this.http.get(BaseService.Url + '/Kiosk/Exists?kioskId=' + kioskId, this.options())
         .map(this.toSuppressedJson)
         .map(event => event ? event.exists : null)
         .toPromise()
