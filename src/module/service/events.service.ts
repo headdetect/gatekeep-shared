@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
-import {SiteEvent} from "../models";
+import {SiteEvent, Volunteer} from "../models";
 import {BaseService} from "./base-service";
 import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
@@ -108,6 +108,50 @@ export class EventsService extends BaseService {
 
     return this.wrapErrorHandler(
       this.http.delete(BaseService.Url + '/Events/' + siteEventId + '/Attendees', this.options(options))
+        .toPromise()
+    );
+  }
+
+
+  public addVolunteers(siteEventId : number, volunteerIds : number[]) : Promise<[any, any]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', `[${volunteerIds.join(',')}]`, options)
+        .toPromise()
+    );
+  }
+
+  public addVolunteer(siteEventId : number, volunteerId : number) : Promise<[any, any]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', `[${volunteerId}]`, options)
+        .toPromise()
+    );
+  }
+
+  public getVolunteers(siteEventId : number) : Promise<[any, Person[]]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.wrapErrorHandler(
+      this.http.get(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', options)
+        .map(this.toJson)
+        .map(attendees => attendees ? this.mapArray<Volunteer>(Volunteer, attendees) : null)
+        .toPromise()
+    );
+  }
+
+  public removeVolunteer(siteEventId : number, volunteerId : number) : Promise<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers, body: `[${volunteerId}]` });
+
+    return this.wrapErrorHandler(
+      this.http.delete(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', options)
         .toPromise()
     );
   }

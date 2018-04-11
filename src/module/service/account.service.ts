@@ -25,7 +25,7 @@ export class AccountService extends BaseService {
         .map(this.toSuppressedJson)
         .map(event => event ? new User(event) : null)
         .toPromise()
-    )
+    );
   }
 
   public logout() : Promise<[any]> {
