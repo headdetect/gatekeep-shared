@@ -16,14 +16,14 @@ export class AccountService extends BaseService {
     super();
   }
 
-  public login(username : string, password : string) : Promise<[any, User]> {
+  public login(username : string, password : string) : Promise<[any, {permissions: string[], user: User}]> {
     return this.wrapErrorHandler(
       this.http.post(BaseService.Url + '/Account/Login', {
         username: username,
         password: password
       }, this.options())
         .map(this.toSuppressedJson)
-        .map(event => event ? new User(event) : null)
+        .map(event => event ? {permissions: event.permissions, user: new User(event.user)} : null)
         .toPromise()
     );
   }
