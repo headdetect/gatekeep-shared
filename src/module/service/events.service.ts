@@ -38,6 +38,21 @@ export class EventsService extends BaseService {
   }
 
   /**
+   * Get specified event for this authorized user
+   *
+   * @returns Promise<[any, SiteEvent]>
+   */
+  public getEvent(eventId: number) : Promise<[any, SiteEvent]> {
+    return this.wrapErrorHandler(
+      this.http.get(`${BaseService.Url}/Events/${eventId}`,
+        this.options())
+        .map(this.toSuppressedJson)
+        .map(event => event ? new SiteEvent(event) : null)
+        .toPromise()
+    )
+  }
+
+  /**
    * Create an event with the specified parameters.
    *
    * @returns {Promise<SiteEvent>}

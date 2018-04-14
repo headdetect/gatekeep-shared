@@ -28,9 +28,9 @@ export class PersonService extends BaseService {
 
   public getPersonsEvents(personId : number) : Promise<[any, SiteEvent[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + "/People/" + personId, this.options())
+      this.http.get(BaseService.Url + "/People/" + personId + '/Events', this.options())
         .map(this.toSuppressedJson)
-        .map(attrs => attrs ? new SiteEvent(attrs) : null)
+        .map(attrs => attrs ? this.mapArray<SiteEvent>(SiteEvent, attrs) : null)
         .toPromise()
     );
   }
