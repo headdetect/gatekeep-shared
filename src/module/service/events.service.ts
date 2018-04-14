@@ -73,19 +73,21 @@ export class EventsService extends BaseService {
     );
   }
 
-  public addAttendees(siteEventId : number, personIds : number[]) : Promise<[any, any]> {
+  public addAttendees(siteEventId : number, personIds : number[], rsvp: boolean = false) : Promise<[any, any]> {
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personIds.join(',')}]`, this.options())
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees',
+        `{persons: [${personIds.join(',')}], rsvp: ${rsvp}}`, this.options())
       .toPromise()
     );
   }
 
-  public addAttendee(siteEventId : number, personId : number) : Promise<[any, any]> {
+  public addAttendee(siteEventId : number, personId : number, rsvp: boolean = false) : Promise<[any, any]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees', `[${personId}]`, this.options(options))
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Attendees',
+        `{persons: [${personId}], rsvp: ${rsvp}}`, this.options(options))
       .toPromise()
     );
   }
@@ -119,7 +121,7 @@ export class EventsService extends BaseService {
 
 
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', `[${volunteerIds.join(',')}]`, options)
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', `[${volunteerIds.join(',')}]`, this.options(options))
         .toPromise()
     );
   }
@@ -129,7 +131,7 @@ export class EventsService extends BaseService {
     const options = new RequestOptions({ headers: headers });
 
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', `[${volunteerId}]`, options)
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', `[${volunteerId}]`, this.options(options))
         .toPromise()
     );
   }
@@ -139,7 +141,7 @@ export class EventsService extends BaseService {
     const options = new RequestOptions({ headers: headers });
 
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', options)
+      this.http.get(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', this.options(options))
         .map(this.toJson)
         .map(attendees => attendees ? this.mapArray<Volunteer>(Volunteer, attendees) : null)
         .toPromise()
@@ -151,7 +153,7 @@ export class EventsService extends BaseService {
     const options = new RequestOptions({ headers: headers, body: `[${volunteerId}]` });
 
     return this.wrapErrorHandler(
-      this.http.delete(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', options)
+      this.http.delete(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', this.options(options))
         .toPromise()
     );
   }
