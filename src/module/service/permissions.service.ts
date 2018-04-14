@@ -35,6 +35,16 @@ export class PermissionsService extends BaseService {
     );
   }
 
+  public updateGroupPermissions(permissionGroup: PermissionGroup) : Promise<[any, PermissionGroup]> {
+    return this.wrapErrorHandler(
+      this.http.put(BaseService.Url + '/Permissions/Group/' + permissionGroup.permissionGroupId + '/Permissions',
+        permissionGroup.permissions, this.options())
+        .map(this.toSuppressedJson)
+        .map(event => event ? new PermissionGroup(event) : null)
+        .toPromise()
+    );
+  }
+
   public deleteGroup(permissionGroup: PermissionGroup) : Promise<[any, PermissionGroup]> {
     return this.wrapErrorHandler(
       this.http.delete(BaseService.Url + '/Permissions/Group/' + permissionGroup.permissionGroupId, this.options())
