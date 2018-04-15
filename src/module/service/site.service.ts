@@ -21,7 +21,7 @@ export class SiteService extends BaseService {
    */
   public getSite(siteId: number) : Promise<[any, Site]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Site/' + siteId)
+      this.http.get(BaseService.Url + '/Site/' + siteId, this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );
@@ -29,7 +29,7 @@ export class SiteService extends BaseService {
 
   public getSites(): Promise<[any, Site[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Site')
+      this.http.get(BaseService.Url + '/Site', this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );
@@ -37,7 +37,7 @@ export class SiteService extends BaseService {
 
   public updateSite(site: Site) : Promise<[any, Site]> {
     return this.wrapErrorHandler(
-      this.http.put(BaseService.Url + '/Site/' + site.siteId, site)
+      this.http.put(BaseService.Url + '/Site/' + site.siteId, site, this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );
@@ -45,7 +45,20 @@ export class SiteService extends BaseService {
 
   public createSite(site: Site) : Promise<[any, Site]> {
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Site/', site)
+      this.http.post(BaseService.Url + '/Site/', site, this.options())
+        .map(this.toSuppressedJson)
+        .toPromise()
+    );
+  }
+
+  /**
+   * Delete the specified site
+   *
+   * @returns
+   */
+  public deleteSite(siteId: number) : Promise<[any, any]> {
+    return this.wrapErrorHandler(
+      this.http.delete(BaseService.Url + '/Site/' + siteId, this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );

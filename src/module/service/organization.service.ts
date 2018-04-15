@@ -21,7 +21,7 @@ export class OrganizationService extends BaseService {
    */
   public getOrganization(): Promise<[any, Organization]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Organization')
+      this.http.get(BaseService.Url + '/Organization', this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );
@@ -29,7 +29,7 @@ export class OrganizationService extends BaseService {
 
   public updateOrganization(organization: Organization): Promise<any> {
     return this.wrapErrorHandler(
-      this.http.put(BaseService.Url + '/Organization', organization)
+      this.http.put(BaseService.Url + '/Organization', organization, this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );

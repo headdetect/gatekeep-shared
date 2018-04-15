@@ -17,7 +17,7 @@ export class VisitorService extends BaseService {
 
   public getVisitors() : Promise<[any, Visitor[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + "/Visitors")
+      this.http.get(BaseService.Url + "/Visitors", this.options())
         .map(this.toSuppressedJson)
         .map(visitors => visitors ? this.mapArray<Visitor>(Visitor, visitors) : null)
         .toPromise()
@@ -26,7 +26,7 @@ export class VisitorService extends BaseService {
 
   public deleteVisitor(visitorId : number) : Promise<[any]> {
     return this.wrapErrorHandler(
-      this.http.delete(BaseService.Url + "/Visitors/" + visitorId)
+      this.http.delete(BaseService.Url + "/Visitors/" + visitorId, this.options())
         .map(this.toSuppressedJson)
         .toPromise()
     );
@@ -34,7 +34,7 @@ export class VisitorService extends BaseService {
 
   public getVisitor(visitorId : number) : Promise<[any, Visitor]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + "/Visitors/" + visitorId)
+      this.http.get(BaseService.Url + "/Visitors/" + visitorId, this.options())
         .map(this.toSuppressedJson)
         .map(attrs => attrs ? new Visitor(attrs) : null)
         .toPromise()
@@ -46,7 +46,7 @@ export class VisitorService extends BaseService {
       return Promise.reject("visitor specified was null");
 
     return this.wrapErrorHandler(
-      this.http.put(BaseService.Url + "/Visitors/" + visitor.visitorId, visitor)
+      this.http.put(BaseService.Url + "/Visitors/" + visitor.visitorId, visitor, this.options())
         .map(this.toJson)
         .map(attrs => attrs ? new Visitor(attrs) : null)
         .toPromise()
@@ -61,7 +61,7 @@ export class VisitorService extends BaseService {
    */
   public logVisitor(visitor : Visitor) : Promise<[any, Visitor]> {
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + "/Visitors", visitor)
+      this.http.post(BaseService.Url + "/Visitors", visitor, this.options())
         .map(this.toSuppressedJson)
         .map(attrs => attrs ? new Visitor(attrs) : null)
       .toPromise()

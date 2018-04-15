@@ -23,7 +23,7 @@ export class SettingsService extends BaseService {
    */
   public saveOrganizationSettings(postSettings: Setting[]): Promise<[any, Setting[]]> {
     return this.wrapErrorHandler(
-      this.http.put(BaseService.Url + '/Settings', postSettings)
+      this.http.put(BaseService.Url + '/Settings', postSettings, this.options())
         .map(this.toSuppressedJson)
         .map(settings => settings ? this.mapArray<Setting>(Setting, settings) : null)
         .toPromise()
@@ -37,7 +37,7 @@ export class SettingsService extends BaseService {
    */
   public getOrganizationSettings(): Promise<[any, Setting[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Settings')
+      this.http.get(BaseService.Url + '/Settings', this.options())
         .map(this.toSuppressedJson)
         .map(settings => settings ? this.mapArray<Setting>(Setting, settings) : null)
         .toPromise()
@@ -51,7 +51,7 @@ export class SettingsService extends BaseService {
    */
   public saveSiteSettings(postSettings: Setting[]): Promise<[any, Setting[]]> {
     return this.wrapErrorHandler(
-      this.http.put(BaseService.Url + '/Settings/Site', postSettings)
+      this.http.put(BaseService.Url + '/Settings/Site', postSettings, this.options())
         .map(this.toSuppressedJson)
         .map(settings => settings ? this.mapArray<Setting>(Setting, settings) : null)
         .toPromise()
@@ -66,7 +66,7 @@ export class SettingsService extends BaseService {
    */
   public getSiteSettings(siteId: number): Promise<[any, Setting[]]> {
     return this.wrapErrorHandler(
-      this.http.get(BaseService.Url + '/Settings/Site/' + siteId)
+      this.http.get(BaseService.Url + '/Settings/Site/' + siteId, this.options())
         .map(this.toSuppressedJson)
         .map(settings => settings ? this.mapArray<Setting>(Setting, settings) : null)
         .toPromise()
