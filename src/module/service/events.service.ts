@@ -130,25 +130,20 @@ export class EventsService extends BaseService {
   }
 
 
-  public addVolunteers(siteEventId : number, volunteerIds : number[]) : Promise<[any, any]> {
+  public addVolunteers(siteEventId : number, volunteerIds : number[], rsvp: boolean = false) : Promise<[any, any]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
 
     return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', `[${volunteerIds.join(',')}]`, this.options(options))
+      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers',
+        `{volunteerIds: [${volunteerIds.join(',')}], rsvp: ${rsvp}}`, this.options(options))
         .toPromise()
     );
   }
 
-  public addVolunteer(siteEventId : number, volunteerId : number) : Promise<[any, any]> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
-
-    return this.wrapErrorHandler(
-      this.http.post(BaseService.Url + '/Events/' + siteEventId + '/Volunteers', `[${volunteerId}]`, this.options(options))
-        .toPromise()
-    );
+  public addVolunteer(siteEventId : number, volunteerId : number, rsvp: boolean = false) : Promise<[any, any]> {
+    return this.addVolunteers(siteEventId, [volunteerId], rsvp);
   }
 
   public getVolunteers(siteEventId : number) : Promise<[any, Person[]]> {
