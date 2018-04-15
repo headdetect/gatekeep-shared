@@ -12,6 +12,7 @@ import {PersonService} from "./module/service";
 import {HelpService} from "./module/service";
 import {SiteService} from "./module/service";
 import {OrganizationService} from "./module/service";
+import {ReportService} from './module/service';
 
 export * from './module/models/';
 export * from './module/service/';
@@ -42,6 +43,7 @@ export * from './module/pipes';
     SiteService,
     OrganizationService,
     SettingsService,
+    ReportService
   ]
 })
 export class GatekeepModule {
@@ -58,7 +60,8 @@ export class GatekeepModule {
         OverviewService,
         HelpService,
         SiteService,
-        SettingsService
+        SettingsService,
+        ReportService
       ]
     };
   }
