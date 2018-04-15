@@ -12,6 +12,8 @@ export class User extends Person {
 
   public email: string;
 
+  public permissionGroup: string;
+
   constructor(attributes: any = {}) {
     super(attributes);
   }

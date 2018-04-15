@@ -71,7 +71,7 @@ export class BaseService {
   }
 
   protected options(included: any = {}) {
-    return Object.assign({ withCredentials: true }, included);
+    return Object.assign(included, { withCredentials: true });
   }
 
   /**

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
+import {Headers, Http, RequestOptions} from '@angular/http';
 import {Person, SiteEvent} from "../models";
 import {BaseService} from "./base-service";
 import 'rxjs/add/operator/toPromise';
@@ -77,6 +77,17 @@ export class UserService extends BaseService {
 
     return this.wrapErrorHandler(
       this.http.post(BaseService.Url + '/Users/' + userId + '/Password', passwords, this.options())
+        .map(this.toSuppressedJson)
+        .toPromise()
+    );
+  }
+
+  public updatePermissionGroup(userId: string, permissionGroup: string): Promise<[any, any]> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.wrapErrorHandler(
+      this.http.post(BaseService.Url + '/Users/' + userId + '/PermissionGroup', `"${permissionGroup}"`, this.options(options))
         .map(this.toSuppressedJson)
         .toPromise()
     );

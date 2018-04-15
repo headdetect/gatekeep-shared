@@ -2,7 +2,7 @@ import {ModuleWithProviders, NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {SuccessAnimationComponent} from "./module/component";
 import {CapitalizePipe} from "./module/pipes";
-import {BaseService, KioskService, SettingsService, UserService} from "./module/service";
+import {BaseService, KioskService, PermissionsService, SettingsService, UserService} from "./module/service";
 import {EventsService} from "./module/service";
 import {AccountService} from "./module/service";
 import {VisitorService} from "./module/service";
@@ -44,6 +44,7 @@ export * from './module/pipes';
     SettingsService,
     UserService,
     KioskService,
+    PermissionsService,
   ]
 })
 export class GatekeepModule {
@@ -63,6 +64,7 @@ export class GatekeepModule {
         SettingsService,
         UserService,
         KioskService,
+        PermissionsService,
       ]
     };
   }
