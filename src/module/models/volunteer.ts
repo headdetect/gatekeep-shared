@@ -1,19 +1,12 @@
 import moment from "moment";
 import {Person} from "./person";
+import {User} from "./user";
 
-export class Volunteer extends Person {
+export class Volunteer extends User {
 
   public volunteerId?: number;
   public applicationDate?: moment.Moment | Date;
   public applicationStatus?: string;
-
-  // User info //
-
-  public username: string;
-
-  public password: string; // Should just be populated on post only. //
-
-  public email: string;
 
   constructor(attributes: any = {}) {
     super(attributes);

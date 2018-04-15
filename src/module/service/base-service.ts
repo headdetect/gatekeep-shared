@@ -70,6 +70,9 @@ export class BaseService {
 
   }
 
+  protected options(included: any = {}) {
+    return Object.assign(included, { withCredentials: true });
+  }
 
   /**
    *

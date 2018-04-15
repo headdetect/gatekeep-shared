@@ -24,7 +24,7 @@ export class HelpService extends BaseService {
       this.http.post(BaseService.Url + '/Help', {
         personId: 0,
         location: location
-      }).map(this.toSuppressedJson)
+      }, this.options()).map(this.toSuppressedJson)
         .toPromise()
     );
   }
