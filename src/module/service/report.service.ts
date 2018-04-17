@@ -18,15 +18,16 @@ export class ReportService extends BaseService {
 
     public event(eventId: number): Promise<[any, any]> {
         return this.wrapErrorHandler(
-            this.http.get(BaseService.Url + '/Reports/Event/' + eventId)
+            this.http.get(BaseService.Url + '/Reports/Events?eventId=' + eventId)
             .toPromise()
         )
     }
 
-    public siteTotal(startDate: moment.Moment, endDate: moment.Moment): Promise<[any, any]> {
+    public siteTotal(siteId: number, startDate: moment.Moment, endDate: moment.Moment): Promise<[any, any]> {
         return this.wrapErrorHandler(
             this.http.get(
-                `${BaseService.Url}/Reports/Site/Total?filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`
+                `${BaseService.Url}/Reports/VolunteerTotals` +
+                `?siteId=${siteId}&filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`
             ).toPromise()
         )
     }
@@ -34,17 +35,19 @@ export class ReportService extends BaseService {
     public siteTraffic(startDate: moment.Moment, endDate: moment.Moment): Promise<[any, any]> {
         return this.wrapErrorHandler(
             this.http.get(
-                `${BaseService.Url}/Reports/Site/Traffic?filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`
+                `${BaseService.Url}/Reports/Site/Traffic` +
+                `?filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`
             ).toPromise()
         )
     }
 
-    public volunteer(volunteerId: number, startDate: moment.Moment, endDate: moment.Moment): Promise<[any, any]> {
+    public volunteer(volunteerId: number, siteId: number, startDate: moment.Moment, endDate: moment.Moment): Promise<[any, any]> {
         const start = startDate.format('L'),
               end = endDate.format('L')
         return this.wrapErrorHandler(
             this.http.get(
-                `${BaseService.Url}/Reports/Volunteer/${volunteerId}?filterStartDate=${start}&filterEndDate=${end}`
+                `${BaseService.Url}/Reports/IndividualVolunteerTotals?` + 
+                `volunteerId=${volunteerId}&siteId=${siteId}&filterStartDate=${start}&filterEndDate=${end}`
             ).toPromise()
         )   
     }
