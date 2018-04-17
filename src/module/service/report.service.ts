@@ -35,7 +35,7 @@ export class ReportService extends BaseService {
     public siteTraffic(startDate: moment.Moment, endDate: moment.Moment): Promise<[any, any]> {
         return this.wrapErrorHandler(
             this.http.get(
-                `${BaseService.Url}/Reports/Site/Traffic` +
+                `${BaseService.Url}/Reports/SchoolTraffic` +
                 `?filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`
             ).toPromise()
         )
