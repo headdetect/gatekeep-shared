@@ -18,7 +18,7 @@ export class ReportService extends BaseService {
 
     public event(eventId: number): Promise<[any, any]> {
         return this.wrapErrorHandler(
-            this.http.get(BaseService.Url + '/Reports/Events?eventId=' + eventId)
+            this.http.get(BaseService.Url + '/Reports/Events?eventId=' + eventId, this.options())
             .toPromise()
         )
     }
@@ -27,7 +27,8 @@ export class ReportService extends BaseService {
         return this.wrapErrorHandler(
             this.http.get(
                 `${BaseService.Url}/Reports/VolunteerTotals` +
-                `?siteId=${siteId}&filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`
+                `?siteId=${siteId}&filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`,
+                this.options()
             ).toPromise()
         )
     }
@@ -36,7 +37,8 @@ export class ReportService extends BaseService {
         return this.wrapErrorHandler(
             this.http.get(
                 `${BaseService.Url}/Reports/SchoolTraffic` +
-                `?filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`
+                `?filterStartDate=${startDate.format('L')}&filterEndDate=${endDate.format('L')}`,
+                this.options()
             ).toPromise()
         )
     }
@@ -47,7 +49,8 @@ export class ReportService extends BaseService {
         return this.wrapErrorHandler(
             this.http.get(
                 `${BaseService.Url}/Reports/IndividualVolunteerTotals?` + 
-                `volunteerId=${volunteerId}&siteId=${siteId}&filterStartDate=${start}&filterEndDate=${end}`
+                `volunteerId=${volunteerId}&siteId=${siteId}&filterStartDate=${start}&filterEndDate=${end}`,
+                this.options()
             ).toPromise()
         )   
     }
