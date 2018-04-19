@@ -146,7 +146,7 @@ export class EventsService extends BaseService {
     return this.addVolunteers(siteEventId, [volunteerId], rsvp);
   }
 
-  public getVolunteers(siteEventId : number) : Promise<[any, Person[]]> {
+  public getVolunteers(siteEventId : number) : Promise<[any, Volunteer[]]> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
