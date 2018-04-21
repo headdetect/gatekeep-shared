@@ -4,9 +4,11 @@
 * [Angular](https://angular.io) (*requires* Angular 4+)
 
 ## Installation
-Install above dependencies via *npm*. 
+* Install dependencies using `npm install`
+* Build GateKeep shared using `gulp`
 
-Now install `gatekeep-shared` via:
+## How to integrate into your project
+* Install `gatekeep-shared` via:
 ```shell
 npm install --save gatekeep-shared
 ```
