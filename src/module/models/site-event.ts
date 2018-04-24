@@ -89,6 +89,11 @@ export class SiteEvent extends BaseModel {
    */
   public siteId: number;
 
+  /**
+   * Description for the event
+   */
+  public description: string;
+
   constructor(attributes: any) {
     super(attributes);
   }

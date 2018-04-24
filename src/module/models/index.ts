@@ -12,3 +12,4 @@ export * from './setting';
 export * from './user';
 export * from './kiosk';
 export * from './permission-group';
+export * from './report'
