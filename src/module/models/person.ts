@@ -14,6 +14,8 @@ export class Person extends BaseModel {
   public addresses?: Array<Address>;
   public phoneNumbers?: Array<PhoneNumber>;
   public image?: string;
+  public company?: string;
+  public email?: string;
 
   constructor(attributes : any = {}) {
     super(attributes);
