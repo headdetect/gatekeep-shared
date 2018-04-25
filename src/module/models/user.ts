@@ -10,8 +10,6 @@ export class User extends Person {
 
   public password: string; // Should just be populated on post only. //
 
-  public email: string;
-
   public permissionGroup: string;
 
   constructor(attributes: any = {}) {
