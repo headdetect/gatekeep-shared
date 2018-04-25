@@ -52,6 +52,15 @@ export class UserService extends BaseService {
     );
   }
 
+  public updateUser(user: User) : Promise<[any, {permissions: string[], user: User}]> {
+    return this.wrapErrorHandler(
+      this.http.put(BaseService.Url + '/Users/' + user.userId, user, this.options())
+        .map(this.toSuppressedJson)
+        .map(event => event ? new User(event) : null)
+        .toPromise()
+    );
+  }
+
   public userNameExists(username: string) : Promise<[any, boolean]> {
     return this.wrapErrorHandler(
       this.http.get(BaseService.Url + '/Users/Exists?username=' + username)
