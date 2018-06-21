@@ -47,7 +47,7 @@ export class SiteEvent extends BaseModel {
   public endDate : string;
 
 
-  public presentor : string;
+  public presenter : string;
 
   public eventId? : number;
 
