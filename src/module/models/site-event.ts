@@ -39,40 +39,32 @@ export class SiteEvent extends BaseModel {
   /**
    * Date of the event, or for recurring events, the first date of the recurrence.
    */
-  public date : number;
-
-  public dateString: string;
+  public startDate : string;
 
   /**
-   * End date of a multi day event, not required for single day events.
+   * End date of the event. Will be same as start date if event only last a single day.
    */
-  public endDate? : number;
-
-  public endDateString? : string;
+  public endDate : string;
 
 
-  public presentor : string;
+  public presenter : string;
 
   public eventId? : number;
 
   /**
    * Start time of the event
    */
-  public startTime : number;
-
-  public startTimeString: string;
+  public startTime: string;
 
   /**
    * End time of the event
    */
-  public endTime : number;
-
-  public endTimeString: string;
+  public endTime: string;
 
   /**
-   * Total number of people attending this event
+   * List of people attending this event
    */
-  public numberOfAttendees : number;
+  public people : number[];
 
   /**
    * Maximum number of volunteers allowed for this event
