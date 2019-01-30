@@ -2,7 +2,7 @@ import {Observable} from "rxjs/Observable";
 import {Response} from '@angular/http';
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import {Injectable} from "@angular/core";
-import {BaseModel} from "../models/base-model";
+import {BaseModel} from "../models";
 
 @Injectable()
 export class BaseService {
@@ -85,13 +85,13 @@ export class BaseService {
    * In a service:
    *
    *
-      public getEvents() : Promise<[any, SiteEvent[]]> {
-         return this.wrapErrorHandler(this.http.get(BaseService.Url + '/Events')
-           .map(this.toSuppressedJson)
-           .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
-           .catch(this.onError)
-           .toPromise())
-      }
+   * public getEvents() : Promise<[any, SiteEvent[]]> {
+   *    return this.wrapErrorHandler(this.http.get(BaseService.Url + '/Events')
+   *      .map(this.toSuppressedJson)
+   *      .map(events => events ? this.mapArray<SiteEvent>(SiteEvent, events) : null)
+   *      .catch(this.onError)
+   *      .toPromise())
+   * }
    *
    * @param {Promise<any>} promise
    * @returns {Promise<any[] | never>}

@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/catch';
 import {Site} from "../models";
-import {Kiosk} from "../models/kiosk";
+import {Kiosk} from "../models";
 
 @Injectable()
 export class KioskService extends BaseService {
